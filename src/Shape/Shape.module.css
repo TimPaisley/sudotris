@@ -1,0 +1,23 @@
+.shape {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.shape:hover {
+  background-color: rgba(0, 80, 0, 0.1);
+}
+
+.line {
+  display: flex;
+}
+
+.tile {
+  width: 20px;
+  height: 20px;
+}
+
+.active {
+  outline: 1px solid black;
+  outline-offset: -2px;
+}

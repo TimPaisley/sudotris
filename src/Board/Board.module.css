@@ -1,0 +1,17 @@
+.board {
+  border: 1px solid black;
+  aspect-ratio: 1;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.square {
+  border: 1px solid grey;
+  flex: 11%;
+  aspect-ratio: 1;
+}
+
+.highlight {
+  background-color: rgba(0, 80, 0, 0.1);
+}
