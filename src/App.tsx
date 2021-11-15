@@ -4,16 +4,10 @@ import Bucket from './Bucket/Bucket';
 import Header from './Header/Header';
 import { closestCenter, DndContext, DragEndEvent, DragOverEvent } from '@dnd-kit/core'
 import { useState } from 'react';
-import structures from './Shape/structures';
+import { getRandomShapeTypes } from './Shape/shapes';
 
 function App() {
-  const initialShapes = [
-    structures[Math.floor(structures.length * Math.random())],
-    structures[Math.floor(structures.length * Math.random())],
-    structures[Math.floor(structures.length * Math.random())],
-  ]
-
-  const [bucketShapes, setBucketShapes] = useState(initialShapes)
+  const [bucketShapes, setBucketShapes] = useState(getRandomShapeTypes(3))
   const [highlightedSquare, setHighlightedSquare] = useState<number | null>(null)
 
   const onDragOver = (event: DragOverEvent) => {
@@ -31,7 +25,7 @@ function App() {
       <DndContext collisionDetection={closestCenter} onDragOver={onDragOver} onDragEnd={onDragEnd}>
         <Header />
         <Board highlightedSquare={highlightedSquare} />
-        <Bucket structures={bucketShapes} />
+        <Bucket shapeTypes={bucketShapes} />
       </DndContext>
     </div>
   );

@@ -1,15 +1,15 @@
 import Shape from '../Shape/Shape'
 import styles from './Bucket.module.css'
-import { Structure } from '../Shape/structures'
+import { getStructure } from '../Shape/shapes'
 
 interface BucketProps {
-  structures: Array<Structure>
+  shapeTypes: Array<string>
 }
 
-export default function Bucket({ structures }: BucketProps) {
+export default function Bucket({ shapeTypes }: BucketProps) {
   return (
     <div className={styles.bucket}>
-      {structures.map((structure, i) => (
+      {shapeTypes.map(getStructure).map((structure, i) => (
         <Shape key={i} structure={structure} shapeId={i} />
       ))}
     </div>
