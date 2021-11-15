@@ -1,4 +1,6 @@
-const shapes = [
+export type Structure = Array<Array<number>>
+
+const structures = [
   [
     [ 0, 0, 0, 0, 0 ],
     [ 0, 0, 1, 0, 0 ],
@@ -34,6 +36,6 @@ const shapes = [
     [ 0, 0, 1, 0, 0 ],
     [ 0, 0, 1, 0, 0 ],
   ],
-]
+] as Array<Structure>
 
-export default shapes;
+export default structures;

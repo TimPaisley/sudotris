@@ -4,10 +4,6 @@
   cursor: pointer;
 }
 
-.shape:hover {
-  background-color: rgba(0, 80, 0, 0.1);
-}
-
 .line {
   display: flex;
 }
