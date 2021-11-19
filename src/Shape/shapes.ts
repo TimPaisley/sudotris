@@ -1,13 +1,13 @@
 export type Structure = Array<[number, number]>
 
 const structures: {[key: string]: Structure} = {
-  i: [ [0, -2], [0, -1], [0, 1] ] as Structure,
-  o: [ [1, 0], [0, 1], [1, 1] ] as Structure,
-  t: [ [-1, 0], [0, 1], [1, 0] ] as Structure,
-  s: [ [-1, 1], [0, 1], [1, 0] ] as Structure,
-  z: [ [-1, 0], [0, 1], [1, 1] ] as Structure,
-  j: [ [0, -1], [0, 1], [-1, 1] ] as Structure,
-  l: [ [0, -1], [0, 1], [1, 1] ] as Structure,
+  i: [ [0, 0], [0, -2], [0, -1], [0, 1] ] as Structure,
+  o: [ [0, 0], [1, 0], [0, 1], [1, 1] ] as Structure,
+  t: [ [0, 0], [-1, 0], [0, 1], [1, 0] ] as Structure,
+  s: [ [0, 0], [-1, 1], [0, 1], [1, 0] ] as Structure,
+  z: [ [0, 0], [-1, 0], [0, 1], [1, 1] ] as Structure,
+  j: [ [0, 0], [0, -1], [0, 1], [-1, 1] ] as Structure,
+  l: [ [0, 0], [0, -1], [0, 1], [1, 1] ] as Structure,
 }
 
 export function getRandomShapeTypes(n: number): Array<string> {

@@ -4,12 +4,12 @@ import { useDraggable } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 
 interface ShapeProps {
-  shapeId: number,
+  shapeId: string,
   structure: Structure
 }
 
 export default function Shape(props: ShapeProps) {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id: props.shapeId.toString() })
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({ id: props.shapeId })
 
   const style = {
     transform: CSS.Translate.toString(transform)
@@ -19,7 +19,6 @@ export default function Shape(props: ShapeProps) {
     <div style={style} ref={setNodeRef} {...attributes} {...listeners}>
       <div className={styles.wrapper}>
         <div className={styles.shape}>
-          <ShapePart coordinates={[0, 0]} />
           {props.structure.map((coordinates, i) => <ShapePart key={i} coordinates={coordinates} />)}
         </div>
       </div>

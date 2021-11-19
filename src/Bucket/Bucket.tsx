@@ -10,7 +10,7 @@ export default function Bucket({ shapeTypes }: BucketProps) {
   return (
     <div className={styles.bucket}>
       {shapeTypes.map(getStructure).map((structure, i) => (
-        <Shape key={i} structure={structure} shapeId={i} />
+        <Shape key={i} structure={structure} shapeId={shapeTypes[i]} />
       ))}
     </div>
   )

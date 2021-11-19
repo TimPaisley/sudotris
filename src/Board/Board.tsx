@@ -1,30 +1,30 @@
 import styles from './Board.module.css'
 import classNames from 'classnames'
 import { useDroppable } from '@dnd-kit/core'
+import { BoardTile } from './utils'
 
 interface BoardProps {
-  highlightedSquare: number | null
+  board: Array<BoardTile>
 }
 
-export default function Board({ highlightedSquare }: BoardProps) {
-  const squares = Array.from(Array(81).keys())
-
+export default function Board({ board }: BoardProps) {
   return (
     <div className={styles.board}>
-      {squares.map(i => <Square key={i} squareId={i} highlighted={highlightedSquare === i} />)}
+      {board.map((tile, i) => <Square key={i} squareId={i} highlighted={tile.highlight} active={tile.active} />)}
     </div>
   )
 }
 
 interface SquareProps {
   squareId: number,
-  highlighted: boolean
+  highlighted: boolean,
+  active: boolean
 }
 
-function Square({ squareId, highlighted }: SquareProps) {
+function Square({ squareId, highlighted, active }: SquareProps) {
   const { setNodeRef } = useDroppable({ id: squareId.toString() })
 
   return (
-    <div ref={setNodeRef} className={classNames(styles.square, highlighted && styles.highlight)} data-square={squareId} />
+    <div ref={setNodeRef} className={classNames(styles.square, highlighted && styles.highlight, active && styles.active)} data-square={squareId} />
   )
 }
