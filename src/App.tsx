@@ -44,7 +44,18 @@ function App() {
         const newBoard = placeShape(clearBoard, shapeCoordinates)
 
         setBoard(newBoard)
+        removeShape(event.active.id)
       }
+    }
+  }
+
+  const removeShape = (id: string) => {
+    const newShapes = bucketShapes.filter(s => s !== id)
+
+    if (newShapes.length > 0) {
+      setBucketShapes(newShapes)
+    } else {
+      setBucketShapes(getRandomShapeTypes(3))
     }
   }
 

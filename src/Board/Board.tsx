@@ -11,6 +11,8 @@ export default function Board({ board }: BoardProps) {
   return (
     <div className={styles.board}>
       {board.map((tile, i) => <Square key={i} squareId={i} highlighted={tile.highlight} active={tile.active} />)}
+      <div className={styles.boardDividerH} />
+      <div className={styles.boardDividerV} />
     </div>
   )
 }
