@@ -1,9 +1,14 @@
 import styles from './Header.module.css'
 
-export default function Header() {
+interface HeaderProps {
+  score: number
+}
+
+export default function Header({ score }: HeaderProps) {
   return (
     <header className={styles.header}>
-      Woodoku
+      <div className={styles.title}>Woodoku</div>
+      <div className={styles.score}>{score}</div>
     </header>
   )
 }

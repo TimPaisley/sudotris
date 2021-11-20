@@ -5,11 +5,12 @@ import Header from './Header/Header';
 import { closestCenter, DndContext, DragEndEvent, DragOverEvent } from '@dnd-kit/core'
 import { useState } from 'react';
 import { getRandomShapeTypes } from './Shape/shapes';
-import { BoardTile, createNewBoard, highlightShape, getCoordsFromIndex, clearHighlights, shapeToTileCoordinates, placeShape } from './Board/utils'
+import { BoardTile, createNewBoard, highlightShape, getCoordsFromIndex, clearHighlights, shapeToTileCoordinates, placeShape, checkAndCompleteSets } from './Board/utils'
 
 function App() {
   const [bucketShapes, setBucketShapes] = useState(getRandomShapeTypes(3))
   const [board, setBoard] = useState<Array<BoardTile>>(createNewBoard(9, 9))
+  const [score, setScore] = useState<number>(0)
 
   const onDragOver = (event: DragOverEvent) => {
     // console.log('onDragOver', event)
@@ -40,10 +41,12 @@ function App() {
       const shapeCoordinates = shapeToTileCoordinates(board, coords, event.active.id)
       
       if (shapeCoordinates) {
-        const clearBoard = clearHighlights(board)
-        const newBoard = placeShape(clearBoard, shapeCoordinates)
+        const clearedHighlights = clearHighlights(board)
+        const placedShape = placeShape(clearedHighlights, shapeCoordinates)
+        const [newBoard, addScore] = checkAndCompleteSets(placedShape)
 
         setBoard(newBoard)
+        setScore(score + addScore)
         removeShape(event.active.id)
       }
     }
@@ -62,7 +65,7 @@ function App() {
   return (
     <div className="App">
       <DndContext collisionDetection={closestCenter} onDragOver={onDragOver} onDragEnd={onDragEnd}>
-        <Header />
+        <Header score={score} />
         <Board board={board} />
         <Bucket shapeTypes={bucketShapes} />
       </DndContext>

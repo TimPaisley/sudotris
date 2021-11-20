@@ -61,6 +61,121 @@ export function clearHighlights(board: Array<BoardTile>): Array<BoardTile> {
   }))
 }
 
+export function checkAndCompleteSets(board: Array<BoardTile>): [Array<BoardTile>, number] {
+  let completedTiles = [] as Array<[number, number]>
+  let score = 0
+
+  // Check rows
+  const completedRowTiles = completedRows(board)
+  completedTiles = completedTiles.concat(completedRowTiles)
+  score += completedRowTiles.length / 9
+  
+  // Check columns
+  const completedColumnTiles = completedColumns(board)
+  completedTiles = completedTiles.concat(completedColumnTiles)
+  score += completedColumnTiles.length / 9
+  
+  // Check boxes
+  const completedBoxTiles = completedBoxes(board)
+  completedTiles = completedTiles.concat(completedBoxTiles)
+  score += completedBoxTiles.length / 9
+
+  const newBoard = board.map(tile => {
+    if (includesCoords(completedTiles, tile.coordinates)) {
+      return { ...tile, active: false }
+    } else {
+      return tile
+    }
+  })
+
+  return [newBoard, score]
+}
+
+function completedRows(board: Array<BoardTile>): Array<[number, number]> {
+  let completedTiles = [] as Array<[number, number]>
+
+  for (let row = 0; row < 9; row++) {
+    let complete = true
+
+    for (let tile = 0; tile < 9; tile++) {
+      const coord = getIndexFromCoords([tile, row])
+
+      if (!board[coord].active) {
+        complete = false
+      }
+    }
+
+    if (complete) {
+      for (let completedTile = 0; completedTile < 9; completedTile++) {
+        completedTiles.push([completedTile, row])
+      }
+    }
+  }
+
+  return completedTiles
+}
+
+function completedColumns(board: Array<BoardTile>): Array<[number, number]> {
+  let completedTiles = [] as Array<[number, number]>
+
+  for (let col = 0; col < 9; col++) {
+    let complete = true
+
+    for (let tile = 0; tile < 9; tile++) {
+      const coord = getIndexFromCoords([col, tile])
+
+      if (!board[coord].active) {
+        complete = false
+      }
+    }
+
+    if (complete) {
+      for (let completedTile = 0; completedTile < 9; completedTile++) {
+        completedTiles.push([col, completedTile])
+      }
+    }
+  }
+
+  return completedTiles
+}
+
+function completedBoxes(board: Array<BoardTile>): Array<[number, number]> {
+  let completedTiles = [] as Array<[number, number]>
+
+  for (let x = 0; x < 3; x++) {
+    for (let y = 0; y < 3; y++) {
+      const boxCoordinates = getBoxCoordinates([x * 3, y * 3])
+      let complete = true
+
+      for (let i = 0; i < boxCoordinates.length; i++) {
+        if (!board[getIndexFromCoords(boxCoordinates[i])].active) {
+          complete = false
+        }
+      }
+
+      if (complete) {
+        for (let j = 0; j < boxCoordinates.length; j++) {
+          completedTiles.push(boxCoordinates[j])
+        }
+      }
+    }
+  }
+
+  return completedTiles
+}
+
+function getBoxCoordinates(topLeftCoordinate: [number, number]): Array<[number, number]> {
+  const coordinates = [] as Array<[number, number]>
+
+  for (let x = 0; x < 3; x++) {
+    for (let y = 0; y < 3; y++) {
+      coordinates.push([topLeftCoordinate[0] + x, topLeftCoordinate[1] + y])
+    }
+  }
+
+  return coordinates
+}
+
 export function getCoordsFromIndex(index: number): [number, number] {
   return [index % 9, Math.floor(index / 9)]
 }
