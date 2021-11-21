@@ -16,11 +16,9 @@ export default function Shape(props: ShapeProps) {
   }
 
   return (
-    <div style={style} ref={setNodeRef} {...attributes} {...listeners}>
-      <div className={styles.wrapper}>
-        <div className={styles.shape}>
-          {props.structure.map((coordinates, i) => <ShapePart key={i} coordinates={coordinates} />)}
-        </div>
+    <div className={styles.wrapper} style={style} ref={setNodeRef} {...attributes} {...listeners}>
+      <div className={styles.shape}>
+        {props.structure.map((coordinates, i) => <ShapePart key={i} coordinates={coordinates} />)}
       </div>
     </div>
   )

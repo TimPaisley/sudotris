@@ -3,6 +3,7 @@
   height: 100px;
   cursor: pointer;
   position: relative;
+  touch-action: none;
 }
 
 .shape {
